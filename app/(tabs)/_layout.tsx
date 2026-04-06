@@ -1,24 +1,6 @@
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { Platform } from 'react-native'
-import { colors } from '../../src/config/theme'
-
-type IconName = React.ComponentProps<typeof Ionicons>['name']
-
-interface TabConfig {
-  name:        string
-  title:       string
-  icon:        IconName
-  iconFocused: IconName
-}
-
-const TABS: TabConfig[] = [
-  { name: 'index',   title: 'Dashboard', icon: 'grid-outline',       iconFocused: 'grid' },
-  { name: 'scanner', title: 'Scanner',   icon: 'scan-outline',       iconFocused: 'scan' },
-  { name: 'macro',   title: 'Macro',     icon: 'bar-chart-outline',  iconFocused: 'bar-chart' },
-  { name: 'news',    title: 'News',      icon: 'newspaper-outline',  iconFocused: 'newspaper' },
-  { name: 'more',    title: 'More',      icon: 'menu-outline',       iconFocused: 'menu' },
-]
 
 export default function TabLayout() {
   return (
@@ -26,38 +8,33 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor:  colors.surface,
-          borderTopColor:   colors.border,
-          borderTopWidth:   0.5,
-          height:           Platform.OS === 'ios' ? 84 : 62,
-          paddingBottom:    Platform.OS === 'ios' ? 24 : 8,
-          paddingTop:       8,
+          backgroundColor: '#0d1117',
+          borderTopColor:  '#1e2d3d',
+          borderTopWidth:  0.5,
+          height:          Platform.OS === 'ios' ? 84 : 60,
+          paddingBottom:   Platform.OS === 'ios' ? 24 : 6,
+          paddingTop:      6,
         },
-        tabBarActiveTintColor:   colors.green,
-        tabBarInactiveTintColor: colors.textMuted,
-        tabBarLabelStyle: {
-          fontSize:   10,
-          fontWeight: '500',
-          marginTop:  2,
-        },
+        tabBarActiveTintColor:   '#22c55e',
+        tabBarInactiveTintColor: '#7a99b0',
+        tabBarLabelStyle: { fontSize: 10, fontWeight: '500' },
       }}
     >
-      {TABS.map(tab => (
-        <Tabs.Screen
-          key={tab.name}
-          name={tab.name}
-          options={{
-            title: tab.title,
-            tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? tab.iconFocused : tab.icon}
-                size={22}
-                color={color}
-              />
-            ),
-          }}
-        />
-      ))}
+      <Tabs.Screen name="index"
+        options={{ title:'Dashboard', tabBarIcon:({ color }) =>
+          <Ionicons name="grid-outline" size={22} color={color} /> }} />
+      <Tabs.Screen name="scanner"
+        options={{ title:'Scanner', tabBarIcon:({ color }) =>
+          <Ionicons name="scan-outline" size={22} color={color} /> }} />
+      <Tabs.Screen name="macro"
+        options={{ title:'Macro', tabBarIcon:({ color }) =>
+          <Ionicons name="bar-chart-outline" size={22} color={color} /> }} />
+      <Tabs.Screen name="news"
+        options={{ title:'News', tabBarIcon:({ color }) =>
+          <Ionicons name="newspaper-outline" size={22} color={color} /> }} />
+      <Tabs.Screen name="more"
+        options={{ title:'More', tabBarIcon:({ color }) =>
+          <Ionicons name="menu-outline" size={22} color={color} /> }} />
     </Tabs>
   )
 }
